@@ -26,7 +26,7 @@ variable "zone" {
 variable "network_id" {
   description = "ID сети в Yandex Cloud"
   type        = string
-  default     = "enpkktr4k8tdpi6l24oj"  # ID существующей сети
+  default     = "enp1gdenmvuu3e1ffi93"  # ID существующей сети default
 }
 
 # 🔑 SSH ключи
@@ -44,10 +44,10 @@ variable "cluster_name" {
 }
 
 # 🔗 Сеть — подсеть, из которой будет взята зона размещения кластера
-variable "subnet_id" {
-  description = "ID существующей подсети в выбранной зоне"
-  type        = string
-}
+# variable "subnet_id" {
+#   description = "ID существующей подсети в выбранной зоне"
+#   type        = string
+# }
 
 # 👤 ID сервисного аккаунта для Data Proc кластера
 variable "service_account_id" {

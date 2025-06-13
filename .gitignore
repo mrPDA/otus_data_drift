@@ -1,36 +1,132 @@
-# Terraform
+# Terraform files
 *.tfstate
 *.tfstate.*
-*.tfvars
+*.tfstate.backup
+*.tfplan
 .terraform/
 .terraform.lock.hcl
-crash.log
-crash.*.log
+terraform.tfvars
+*.auto.tfvars
 
 # Environment variables
 .env
-*.env
+.env.local
+.env.production
+.env.staging
 
 # SSH keys
 *.pem
 *.key
 id_rsa*
-*.pub
+admin-key.json
+service-account-key.json
 
-# IDE
+# Command files with sensitive data
+command.txt
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IDEs
 .vscode/
 .idea/
 *.swp
 *.swo
+*~
 
-# OS
+# OS generated files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
 Thumbs.db
 
 # Logs
 *.log
+logs/
+*.out
 
 # Backup files
-*~
 *.bak
 *.backup
+
+# Data files (exclude large datasets)
+*.csv
+*.parquet
+data/
+datasets/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Yandex Cloud specific
+yc_config.yaml
+cloud-config.yaml
+
+# =================================================================
+# FILES NOT INCLUDED IN PUBLIC REPOSITORY STRUCTURE
+# =================================================================
+
+# Internal development files
+README_FOR_AI.md
+GITHUB_SETUP_SUMMARY.md
+
+# Terraform generated files
+terraform.tfvars.generated
+tfplan
+
+# Build and deployment artifacts
+Makefile
+
+# Internal automation scripts
+manage_tunnel.sh
+start_jupyter_simple.sh
+
+# Terraform outputs (may contain sensitive data)
+outputs.tf
+
+# Development directories not for public
+create_spark/
+create-additional-bucket/
+create-admin-sa/
+create-bucket/
+data-drift-analysis/
+archive/
+
+# Note: archive/ contains internal development files and should not be public

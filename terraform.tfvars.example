@@ -1,0 +1,13 @@
+# Yandex Cloud Configuration
+cloud_id                   = "your-cloud-id-here"
+folder_id                  = "your-folder-id-here"
+zone                       = "ru-central1-a"
+service_account_key_file   = "path/to/your/service-account-key.json"
+service_account_id         = "your-service-account-id"
+network_id                 = "your-network-id"
+
+# SSH Configuration
+public_key_path            = "path/to/your/public-key.pub"
+
+# Cluster Configuration
+cluster_name               = "spark-data-drift-cluster"

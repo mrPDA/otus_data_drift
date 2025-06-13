@@ -33,6 +33,13 @@ resource "yandex_vpc_security_group" "dataproc_security_group" {
   }
 
   ingress {
+    protocol       = "TCP"
+    description    = "Allow Jupyter Notebook connections"
+    v4_cidr_blocks = ["0.0.0.0/0"]
+    port           = 8888
+  }
+
+  ingress {
     protocol       = "ANY"
     description    = "Allow all cluster internal traffic"
     predefined_target = "self_security_group"
@@ -44,6 +51,14 @@ resource "yandex_vpc_security_group" "dataproc_security_group" {
     protocol       = "ANY"
     description    = "Allow all cluster internal traffic"
     predefined_target = "self_security_group"
+    from_port      = 0
+    to_port        = 65535
+  }
+
+  egress {
+    protocol       = "ANY"
+    description    = "Allow all outgoing internet traffic"
+    v4_cidr_blocks = ["0.0.0.0/0"]
     from_port      = 0
     to_port        = 65535
   }
@@ -53,19 +68,6 @@ resource "yandex_vpc_security_group" "dataproc_security_group" {
     description    = "Allow NTP connections"
     v4_cidr_blocks = ["0.0.0.0/0"]
     port           = 123
-  }
-
-  egress {
-    protocol       = "ANY"
-    description    = "Allow outgoing connections to specific Yandex Cloud services"
-    v4_cidr_blocks = [
-      "84.201.181.26/32",    # Data Processing status and jobs
-      "158.160.59.216/32",   # Monitoring and autoscaling
-      "213.180.193.243/32",  # Object Storage
-      "84.201.181.184/32"    # Cloud Logging
-    ]
-    from_port      = 0
-    to_port        = 65535
   }
 }
 
@@ -122,15 +124,28 @@ resource "yandex_dataproc_cluster" "spark_cluster" {
     }
 
     subcluster_spec {
-      name = "data"
-      role = "DATANODE"
+      name = "compute"
+      role = "COMPUTENODE"
       resources {
         resource_preset_id = "s3-c4-m16"
         disk_type_id      = "network-ssd"
         disk_size         = 128
       }
       subnet_id   = yandex_vpc_subnet.dataproc_subnet.id
-      hosts_count = 3
+      hosts_count = 2
+      assign_public_ip = true
+    }
+
+    subcluster_spec {
+      name = "data"
+      role = "DATANODE"
+      resources {
+        resource_preset_id = "s3-c2-m8"
+        disk_type_id      = "network-ssd"
+        disk_size         = 100
+      }
+      subnet_id   = yandex_vpc_subnet.dataproc_subnet.id
+      hosts_count = 1
       assign_public_ip = true
     }
 
